@@ -1,0 +1,125 @@
+{% extends "default.xml.twig" %}
+
+{% block content %}
+<ClinicalDocument 
+    
+    {# Namespace #}
+    xmlns="urn:hl7-org:v3" 
+    
+    {# Model intercange format #}
+    xmlns:mif="urn:hl7-org:v3/mif"
+    
+    
+    {# Vocabulary #}
+    xmlns:voc="urn:hl7-org:v3/voc" 
+    
+    
+    {# XML Schema #}
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd"
+
+>
+
+    <!-- CDA Header -->
+
+    {# Unique ID of the model #}
+    <typeId 
+        
+        {# OID of the HL7 model #}
+        root="2.16.840.1.113883.1.3" 
+        
+        {# Unique identifier for hierachy CDA Release 2 #}
+        extension="POCD_HD000040" 
+    />
+    
+    
+    {# Unique ID of the document #}
+    <id root="2.16.840.1.113883.19.4" extension="c266"/>
+    
+    
+    {# Document type #}
+    <code 
+        code="11488-4" 
+        codeSystem="2.16.840.1.113883.6.1" 
+        codeSystemName="LOINC"
+        displayName="Consultation note"
+    />
+    
+    
+    {# Creation time: 20050329224411-0500  #}
+    <effectiveTime value="{{ document['created_at'] }}"/>
+    
+    
+    {# Confidentiality code: normal #}
+    <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+    
+    
+    {# Patient #}
+    <recordTarget>
+        
+        {# Role #}
+        <patientRole>
+            
+            {# Id of the patient #}
+            <id extension="12345" root="2.16.840.1.113883.19.99.9"/>
+            
+            
+            {# Patient information #}
+            <patient>
+            
+                <name>
+                    <given>{{ pacient['name'] }}</given>
+                    <family>{{ pacient['surname1'] }}</family>
+                    {% if pacient['surname2'] %}
+                    <family>{{ pacient['surname2'] }}</family>
+                    {% endif %}
+                </name>
+     
+     
+                {# Gender #}
+                <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1"/>
+                
+                
+                {# Pacient #}
+                <birthTime value="{{ pacient['birth'] }}"/>
+ 
+            </patient>
+            {# Enf of patient information #}
+        
+        </patientRole>
+        {# End of patient role #}
+
+    </recordTarget>
+    {# End of patient #}
+    
+    
+    {# Creator of the document #}
+    <author>
+    
+        {# Creation #}
+        <time value="{{ now|date('%Y%d%m') }}"/>
+        
+        
+        {# Organitation #}
+        <assignedAuthor>
+            <id extension="KP00017" root="2.16.840.1.113883.19.5"/>
+        </assignedAuthor>
+    </author>
+    {# End of the creator of the document #}
+    
+    
+    {# Custodian of the document #}
+    <custodian>
+        <assignedCustodian>
+            <representedCustodianOrganization>
+                <id root="2.16.840.1.113883.19.5"/>
+                <name>{{ document['custodian'] }}</name>
+            </representedCustodianOrganization>
+        </assignedCustodian>
+    </custodian>
+    {# End of custordian of the document #}
+    
+    
+    <!-- CDA Body -->
+
+</ClinicalDocument>
+{% endblock %}

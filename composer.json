@@ -1,0 +1,25 @@
+{
+    "name": "smolky/premytecd",
+    "version": "1.0.0-dev",
+    "description": "premyTECD XML.",
+    
+    "autoload": {
+        "psr-4": {
+            "CoreOGraphy\\": ["core/"],
+            "PremyTECD\\": ["custom/"]
+        }
+    },
+    
+    "require": {
+        "php": ">=5.5.0",
+        
+        "altorouter/altorouter": "1.1.0",
+        "pimple/pimple": "~3.0",
+        "twig/twig": "~1.0",
+        "swiftmailer/swiftmailer": "5.4.6",
+        "symfony/debug": "3.*",
+        "philipp15b/php-i18n": "*",
+        "zendframework/zend-diactoros": "*"
+        
+    }
+}
