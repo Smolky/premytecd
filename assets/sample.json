@@ -1,0 +1,110 @@
+{
+  "apellidos": "García Díaz",
+  "altura": "163",
+  "enfermedad_tratamiento": [
+    {
+      "enfermedad_tipo": "D",
+      "enfermedad": "Hepatitis",
+      "fecha_medición": "2017-12-23",
+      "tratamiento": "Solución - E"
+    },
+    {
+      "enfermedad": "Hipertensión Arterial",
+      "fecha_medición": "2017-12-09",
+      "tratamiento": "Solución - C"
+    },
+    {
+      "enfermedad_tipo": "1",
+      "enfermedad": "Diabetes",
+      "fecha_medición": "2017-11-02",
+      "tratamiento": "Solución - A"
+    }
+  ],
+  "glucosa": [
+    {
+      "estado": "ayuna",
+      "fecha_medición": "2017-12-24",
+      "hora": "08:30 PM",
+      "glucosa": "99"
+    },
+    {
+      "estado": "postprandial",
+      "fecha_medición": "2017-12-24",
+      "hora": "12:30 AM",
+      "glucosa": "115"
+    },
+    {
+      "estado": "ayuna",
+      "fecha_medición": "2017-12-23",
+      "hora": "08:30 AM",
+      "glucosa": "79"
+    }
+  ],
+  "genero": "hombre",
+  "peso_corporal": [
+    {
+      "fecha_medición": "2017-12-24",
+      "porcentaje_grasa": "4",
+      "peso": "71",
+      "porcentaje_agua": "6",
+      "tmb": "1670",
+      "imc": "26.72"
+    },
+    {
+      "fecha_medición": "2017-12-23",
+      "porcentaje_grasa": "5",
+      "peso": "67",
+      "porcentaje_agua": "5"
+    },
+    {
+      "fecha_medición": "2017-12-09",
+      "porcentaje_grasa": "5",
+      "peso": "77",
+      "porcentaje_agua": "5"
+    },
+    {
+      "fecha_medición": "2017-10-30",
+      "porcentaje_grasa": "4",
+      "peso": "70",
+      "porcentaje_agua": "6"
+    },
+    {
+      "fecha_medición": "2017-09-25",
+      "porcentaje_grasa": "4",
+      "peso": "65",
+      "porcentaje_agua": "6"
+    },
+    {
+      "fecha_medición": "2017-09-12",
+      "porcentaje_grasa": "4",
+      "peso": "71",
+      "porcentaje_agua": "5"
+    }
+  ],
+  "pulso_oxigeno": [
+    {
+      "pulso": "80",
+      "fecha_medición": "2017-12-09",
+      "oxigeno": "98.3"
+    },
+    {
+      "pulso": "78",
+      "fecha_medición": "2017-12-09",
+      "oxigeno": "95.7"
+    }
+  ],
+  "nombre": "José Antonio",
+  "presion_sanguinea": [
+    {
+      "fecha_medición": "2017-12-24",
+      "sistolica": "115",
+      "diastolica": "80"
+    },
+    {
+      "fecha_medición": "2017-12-09",
+      "sistolica": "120",
+      "diastolica": "75"
+    }
+  ],
+  "f_nacimiento": "2017-11-29"
+}

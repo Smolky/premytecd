@@ -67,10 +67,10 @@
             <patient>
             
                 <name>
-                    <given>{{ pacient['name'] }}</given>
-                    <family>{{ pacient['surname1'] }}</family>
-                    {% if pacient['surname2'] %}
-                    <family>{{ pacient['surname2'] }}</family>
+                    <given>{{ patient['name'] }}</given>
+                    <family>{{ patient['surname1'] }}</family>
+                    {% if patient['surname2'] %}
+                    <family>{{ patient['surname2'] }}</family>
                     {% endif %}
                 </name>
      
@@ -79,8 +79,8 @@
                 <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1"/>
                 
                 
-                {# Pacient #}
-                <birthTime value="{{ pacient['birth'] }}"/>
+                {# Patient #}
+                <birthTime value="{{ patient['birth'] }}"/>
  
             </patient>
             {# Enf of patient information #}
@@ -107,19 +107,190 @@
     {# End of the creator of the document #}
     
     
-    {# Custodian of the document #}
-    <custodian>
-        <assignedCustodian>
-            <representedCustodianOrganization>
-                <id root="2.16.840.1.113883.19.5"/>
-                <name>{{ document['custodian'] }}</name>
-            </representedCustodianOrganization>
-        </assignedCustodian>
-    </custodian>
-    {# End of custordian of the document #}
-    
-    
     <!-- CDA Body -->
+    <component>
+        <structuredBody>
+            <component>
+                
+                <!-- Patient history -->
+                <section>
+                
+                    <!-- Title -->
+                    <title>History of Present illness Narrative</title>
+                    
+                    
+                    <!-- 10164-2. History of Present illness Narrative -->
+                    <code code="10164-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+                    
+                </section>
+                
+                
+                <!-- Body weight measures -->
+                <section>
+                
+                    <!-- Title -->
+                    <title>Body Weight Measures</title>
+                    
+                    
+                    {% for measure in measures['body_weight'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="301333006" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="peso-corporal"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['weight'] }}" unit="kg" />
+                            </observation>
+                        </entry>
+                        
+                        {% if measure['bmi'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="60621009" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="BMI. Body Mass Index"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['bmi'] }}" />
+                            </observation>
+                        </entry>
+                        {% endif %}
+                        {% if measure['bmr'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="122869004" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="BMR. Basal Metabolic Rate"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['bmr'] }}" />
+                            </observation>
+                        </entry>
+                        {% endif %}
+                    {% endfor %}
+                
+                </section>
+                <!-- End of weight -->
+                
+                
+                <!-- Glucose measures -->
+                <section>
+                
+                    <!-- Title -->
+                    <title>Glucose measures</title>
+                    
+                    
+                    {% for measure in measures['glucose'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="{{ code }}" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="{{ measure['name'] }}"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['glucose'] }}" />
+                            </observation>
+                        </entry>
+                    {% endfor %}
+                
+                </section>
+                <!-- End of glucose measures -->
+                
+                
+                <!-- Blood preassure measures -->
+                <section>
+                
+                    <!-- Title -->
+                    <title>Blood preassure measures</title>
+                    
+                    
+                    {% for measure in measures['blood_pressure'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="271649006" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="systolic"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['systolic'] }}" />
+                            </observation>
+                        </entry>
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="271650006" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="diastolic"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['diastolic'] }}" />
+                            </observation>
+                        </entry>
+                    {% endfor %}
+                
+                </section>
+                <!-- End of blood preassure measures -->
+                
+                
+                <!-- Pulse measures -->
+                <section>
+                
+                    <!-- Title -->
+                    <title>Pulse measures</title>
+                    
+                    
+                    {% for measure in measures['pulse'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="366199006" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="pulse"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['pulse'] }}" />
+                            </observation>
+                        </entry>
+                    {% endfor %}
+                
+                </section>
+                <!-- End of pulse meassures -->
+                
+                
+                <!-- Oxygen measures -->
+                <section>
+                
+                    <!-- Title -->
+                    <title>Pulse measures</title>
+                    
+                    
+                    {% for measure in measures['oxygen'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="104847001" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="oxygen"/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['oxygen'] }}" />
+                            </observation>
+                        </entry>
+                    {% endfor %}
+                
+                </section>
+                <!-- End of Oxygen meassures -->
+
+                
+            </component>
+        </structuredBody>
+    </component>
 
 </ClinicalDocument>
 {% endblock %}
