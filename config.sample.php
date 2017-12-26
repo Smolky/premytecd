@@ -67,3 +67,11 @@ $email_from = '';
  * - Examples            19 Not use in real cases         <http://oid-info.com/get/2.16.840.1.113883.19>
  */
 $cda_hl7_root = '2.16.840.1.113883.19';
+
+
+/** $cda_hl7_author String The author of the document */
+$cda_hl7_author = '2.16.840.1.113883.19';
+
+
+/** $cda_hl7_custodian String The custodian of the document */
+$cda_hl7_custodian = '2.16.840.1.113883.19';

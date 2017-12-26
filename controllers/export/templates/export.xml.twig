@@ -19,8 +19,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd"
 
 >
-
-    <!-- CDA Header -->
+    <!-- CDA Header --> {# @see http://www.cdapro.com/know/25007 #}
     {# Unique ID of the model #}
     <typeId 
         
@@ -87,49 +86,55 @@
     <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
     
     
-    {# Describing the participation that connects the patient information to the clinical document. #}
-    {# @see http://www.cdapro.com/know/25068 #}
+    {# 
+     # recordTarget
+     # 
+     # Describing the participation that connects the patient 
+     # information to the clinical document. 
+     #
+     # @see http://www.cdapro.com/know/25068 
+     #}
     <recordTarget>
         
         {# 
          # Role 
          #
          # Properties of the patient that are related to the context 
-         # of their role of “being a patient” #}
+         # of their role of “being a patient”
          #
          # @see http://www.cdapro.com/know/25054 
-        #}
+         #}
         <patientRole>
             
             {# 
              # Id of the patient
              #
-             # Identifier of the patient in the healthcare organization where they 
-             # are a patient
+             # Identifier of the patient in the healthcare 
+             # organization where they are a patient
              #}
-            <id extension="{{ patient['id'] }}" root="2.16.840.1.113883.19.99.9"/>
+            <id root="{{ cda['root'] }}.{{ document['id'] }}" extension="{{ patient['id'] }}" />
             
             
-            {# Patient information #}
-            {# Properties of the patient as a person #}
+            {# 
+             # Patient information
+             #
+             # Properties of the patient as a person
+             #
+             # @see http://www.cdapro.com/know/27368
+             #}
             <patient>
             
-                <name>
-                    <given>{{ patient['name'] }}</given>
-                    <family>{{ patient['surname1'] }}</family>
-                    {% if patient['surname2'] %}
-                    <family>{{ patient['surname2'] }}</family>
-                    {% endif %}
-                </name>
-     
-     
-                {# Gender #}
-                <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1"/>
+                {# name @see http://www.cdapro.com/know/25041 #}
+                <name>{{ patient['name'] }}</name>
                 
                 
-                {# Patient #}
-                <birthTime value="{{ patient['birth'] }}"/>
- 
+                {# Gender @see http://www.cdapro.com/know/27375 #}
+                <administrativeGenderCode code="{{ patient['genre'] }}" codeSystem="2.16.840.1.113883.5.1" />
+                
+                
+                {# Birth @see http://www.cdapro.com/know/25058 #}
+                <birthTime value="{{ patient['birth'] }}" />
+                
             </patient>
             {# Enf of patient information #}
         
@@ -145,34 +150,45 @@
     
         {# Creation #}
         <time value="{{ 'now'|date('YmdHi') }}"/>
-
         
-        {# Organitation #}
+        
+        {# Author #}
         <assignedAuthor>
-            <id extension="KP00017" root="2.16.840.1.113883.19.5"/>
+            <id root="{{ cda['root'] }}.{{ document['id'] }}" extension="{{ cda['author']['id'] }}" />
         </assignedAuthor>
     </author>
     {# End of the creator of the document #}
     
     
+    {# custodian #}
+    <custodian>
+        <assignedCustodian>
+            <representedCustodianOrganization>
+                <id root="{{ cda['custodian'] }}"/>
+            </representedCustodianOrganization>
+        </assignedCustodian>
+    </custodian>
+    {# End of the custodian of the document #}
+    
+    
     <!-- CDA Body -->
+    {# 
+     # component
+     #
+     # @see http://www.cdapro.com/know/24993 What is the high-level CDA document syntax?
+     # @see http://www.cdapro.com/know/26762 Clinical act statements
+     #}
+    
     <component>
+    
+        {# 
+         # The structured body is made up of a series of section 
+         # elements. 
+         #}
         <structuredBody>
+        
             <component>
-                
-                <!-- Patient history -->
-                <section>
-                
-                    <!-- Title -->
-                    <title>History of Present illness Narrative</title>
-                    
-                    
-                    <!-- 10164-2. History of Present illness Narrative -->
-                    <code code="10164-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
-                    
-                </section>
-                
-                
+
                 <!-- Body weight measures -->
                 <section>
                 
@@ -338,10 +354,12 @@
                 
                 </section>
                 <!-- End of Oxygen meassures -->
-
                 
             </component>
+        
         </structuredBody>
+        <!-- End of structured body -->
+        
     </component>
 
 </ClinicalDocument>

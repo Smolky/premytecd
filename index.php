@@ -51,7 +51,9 @@ $container = new Container ();
 
 // Store CDA
 $container['cda'] = [
-    'root' => $cda_hl7_root
+    'root'      => $cda_hl7_root,
+    'author'    => $cda_hl7_author,
+    'custodian' => $cda_hl7_custodian
 ];
 
 

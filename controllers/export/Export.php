@@ -21,20 +21,17 @@ class Export extends CoreOGraphy\BaseController {
         // Convert to JSON
         $historial = json_decode ($historial, true);
         
-        
-        // Create data
-        $surname = explode (' ', $historial['apellidos']);
-        
-        
+
         // For the sake of simplicity we suposse the surnames 
         // can be exploded by spaces
         $data = [
         
             // Patient information
             'patient' => [
-                'name' => $historial['nombre'],
-                'surname1' => reset ($surname),
-                'surname2' => end ($surname),
+                /* @todo */
+                'id' => rand (1, 10),
+                'genre' => $historial['genero'] == 'hombre' ? 'M' : 'F',
+                'name' => trim ($historial['nombre'] . ' ' . $historial['apellidos']),
                 'birth' => str_replace ('-', '', $historial['f_nacimiento'])
             ],
         ];
@@ -52,6 +49,10 @@ class Export extends CoreOGraphy\BaseController {
         
         // Creation
         $data['cda']['created_at'] = time ();
+        $data['cda']['author'] = [
+            'id' => rand (1, 10),
+            'name' => 'Premytecd'
+        ];
         
         
         // Init vars
