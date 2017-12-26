@@ -1,6 +1,7 @@
 {% extends "default.xml.twig" %}
 
 {% block content %}
+{# The ClinicalDocument class is the entry point into the CDA R-MIM, the root element of a CDA document. #}
 <ClinicalDocument 
     
     {# Namespace #}
@@ -20,11 +21,16 @@
 >
 
     <!-- CDA Header -->
-
     {# Unique ID of the model #}
     <typeId 
         
-        {# OID of the HL7 model #}
+        {# 
+         # OID of the HL7 model
+         #
+         # Health Level 7 (HL7) registered Refined Message Information Models (RMIMs) 
+         #
+         # @see http://oid-info.com/get/2.16.840.1.113883.1.3
+         #}
         root="2.16.840.1.113883.1.3" 
         
         {# Unique identifier for hierachy CDA Release 2 #}
@@ -33,37 +39,79 @@
     
     
     {# Unique ID of the document #}
-    <id root="2.16.840.1.113883.19.4" extension="c266"/>
+    <id root="{{ cda['root'] }}" extension="{{ document['id'] }}"/>
     
     
-    {# Document type #}
+    {# 
+     # Document type
+     #
+     # Logical Observation Identifier Names and Codes (LOINC)
+     #
+     # This term was created for, but is not limited in use to, 
+     # the HL7 FHIR Vital Signs Profile (http://build.fhir.org/observation-vitalsigns.html). 
+     # This collection includes the standard vital sign 
+     # measurements (heart and respiratory rate, blood pressure and body temperature) 
+     # along with measurements for oxygen saturation, height, weight, head circumference, 
+     # and body mass index (BMI). All measurements are optional in this panel.
+     #
+     # @see http://oid-info.com/get/2.16.840.1.113883.6.1
+     # @see https://r.details.loinc.org/LOINC/85353-1.html?sections=Comprehensive
+     #}
     <code 
-        code="11488-4" 
+        code="85353-1" 
         codeSystem="2.16.840.1.113883.6.1" 
         codeSystemName="LOINC"
-        displayName="Consultation note"
+        displayName="Vital signs, weight, height, head circumference, oxygen saturation and BMI panel"
     />
     
     
-    {# Creation time: 20050329224411-0500  #}
-    <effectiveTime value="{{ document['created_at'] }}"/>
+    {# Creation time: 20050329224411-0500 #}
+    <effectiveTime value="{{ cda['created_at']|date('YmdHi') }}"/>
     
     
-    {# Confidentiality code: normal #}
+    {# 
+     # Confidentiality code
+     #
+     # Privacy metadata indicating the sender's sensitivity classification, 
+     # which is based on an analysis of applicable privacy policies and 
+     # the risk of harm that could result from unauthorized disclosure. 
+     #
+     # possible values: Normal, restricted, substance abuse related.
+     #
+     # normal: the information is typical, non-stigmatizing health information, 
+     #         which presents typical risk of harm if disclosed without authorization.
+     #          
+     # @see https://www.hl7.org/documentcenter/public_temp_CCA2FF45-1C23-BA17-0CC8CAB2827597E8/standards/vocabulary/vocabulary_tables/infrastructure/vocabulary/vs_Confidentiality.html
+     #}
+    
     <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
     
     
-    {# Patient #}
+    {# Describing the participation that connects the patient information to the clinical document. #}
+    {# @see http://www.cdapro.com/know/25068 #}
     <recordTarget>
         
-        {# Role #}
+        {# 
+         # Role 
+         #
+         # Properties of the patient that are related to the context 
+         # of their role of “being a patient” #}
+         #
+         # @see http://www.cdapro.com/know/25054 
+        #}
         <patientRole>
             
-            {# Id of the patient #}
-            <id extension="12345" root="2.16.840.1.113883.19.99.9"/>
+            {# 
+             # Id of the patient
+             #
+             # Identifier of the patient in the healthcare organization where they 
+             # are a patient
+             #}
+            <id extension="{{ patient['id'] }}" root="2.16.840.1.113883.19.99.9"/>
             
             
             {# Patient information #}
+            {# Properties of the patient as a person #}
             <patient>
             
                 <name>
@@ -210,28 +258,32 @@
                     
                     
                     {% for measure in measures['blood_pressure'] %}
-                        <entry>
-                            <observation classCode="OBS" moodCode="EVN">
-                                <code 
-                                    code="271649006" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
-                                    displayName="systolic"/>
-                                <effectiveTime value="{{ measure['time'] }}"/>
-                                <value xsi:type="PQ" value="{{ measure['systolic'] }}" />
-                            </observation>
-                        </entry>
-                        <entry>
-                            <observation classCode="OBS" moodCode="EVN">
-                                <code 
-                                    code="271650006" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
-                                    displayName="diastolic"/>
-                                <effectiveTime value="{{ measure['time'] }}"/>
-                                <value xsi:type="PQ" value="{{ measure['diastolic'] }}" />
-                            </observation>
-                        </entry>
+                        {% if measure['systolic'] %}
+                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="271649006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="systolic"/>
+                                    <effectiveTime value="{{ measure['time'] }}"/>
+                                    <value xsi:type="PQ" value="{{ measure['systolic'] }}" />
+                                </observation>
+                            </entry>
+                        {% endif %}
+                        {% if measure['diastolic'] %}
+                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="271650006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="diastolic"/>
+                                    <effectiveTime value="{{ measure['time'] }}"/>
+                                    <value xsi:type="PQ" value="{{ measure['diastolic'] }}" />
+                                </observation>
+                            </entry>
+                        {% endif %}
                     {% endfor %}
                 
                 </section>

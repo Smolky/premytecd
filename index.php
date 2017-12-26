@@ -49,6 +49,12 @@ if ( ! PRODUCTION) {
 $container = new Container ();
 
 
+// Store CDA
+$container['cda'] = [
+    'root' => $cda_hl7_root
+];
+
+
 // Require core libs
 require ('custom/functions.php');
 

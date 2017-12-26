@@ -40,12 +40,28 @@ class Export extends CoreOGraphy\BaseController {
         ];
         
         
+        // CDA
+        $data['cda'] = $this->_container['cda'];
+        
+        
+        // Document
+        $data['document'] = [
+            'id' => rand (1, 10)
+        ];
+        
+        
+        // Creation
+        $data['cda']['created_at'] = time ();
+        
+        
         // Init vars
-        $data['measures']['body_weight'] = [];
-        $data['measures']['glucose'] = [];
-        $data['measures']['blood_pressure'] = [];
-        $data['measures']['pulse'] = [];
-        $data['measures']['oxygen'] = [];
+        $data['measures'] = [
+            'body_weight' => [],
+            'glucose' => [],
+            'blood_pressure' => [],
+            'pulse' => [],
+            'oxygen' => [],
+        ];
         
         
         // Weight
