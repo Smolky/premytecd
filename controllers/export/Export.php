@@ -6,7 +6,27 @@
  * @package PremyTECD
  */
 class Export extends CoreOGraphy\BaseController {
-
+    
+    /** @var $file String */
+    protected $file = '';
+    
+    
+    /**
+     * __construct
+     *
+     * @param $file String
+     *
+     */
+    public function __construct ($file='sample-770') {
+        
+        // Assign files
+        $this->file = $file;
+        
+        
+        // Delegate on parent constructor
+        parent::__construct ();
+    }
+    
     /**
      * handleRequest
      *
@@ -15,21 +35,33 @@ class Export extends CoreOGraphy\BaseController {
     public function handleRequest () {
         
         // Read file
-        $historial = file_get_contents ('assets/sample.json');
+        $historial = file_get_contents ('assets/' . $this->file . '.json');
         
         
         // Convert to JSON
         $historial = json_decode ($historial, true);
         
-
+        
+        // Fill gaps
+        foreach (['nombre', 'apellidos', 'genero', 'birth'] as $field) {
+            $historial[$field] = isset ($historial[$field]) ? $historial[$field] : '';
+        }
+        
+        
         // For the sake of simplicity we suposse the surnames 
         // can be exploded by spaces
         $data = [
         
+            // Codes
+            'snomed' => [
+                'code' => '2.16.840.1.113883.6.96',
+                'name' => 'SNOMED CT'
+            ],
+            
+            
             // Patient information
             'patient' => [
-                /* @todo */
-                'id' => rand (1, 10),
+                'id' => $historial['id_paciente'],
                 'genre' => $historial['genero'] == 'hombre' ? 'M' : 'F',
                 'name' => trim ($historial['nombre'] . ' ' . $historial['apellidos']),
                 'birth' => str_replace ('-', '', $historial['f_nacimiento'])
@@ -49,10 +81,6 @@ class Export extends CoreOGraphy\BaseController {
         
         // Creation
         $data['cda']['created_at'] = time ();
-        $data['cda']['author'] = [
-            'id' => rand (1, 10),
-            'name' => 'Premytecd'
-        ];
         
         
         // Init vars
@@ -62,6 +90,8 @@ class Export extends CoreOGraphy\BaseController {
             'blood_pressure' => [],
             'pulse' => [],
             'oxygen' => [],
+            'temperature' => [],
+            'breathing_frequency' => []
         ];
         
         
@@ -69,6 +99,7 @@ class Export extends CoreOGraphy\BaseController {
         foreach ($historial['peso_corporal'] as $record) {
             $data['measures']['body_weight'][] = [
                 'time' => str_replace ('-', '', $record['fecha_medición']) . '0000',
+                'textual_time' => $record['fecha_medición'],
                 'weight' => $record['peso'],
                 'bmi' => isset ($record['imc']) ? $record['imc'] : null,
                 'bmr' => isset ($record['tmb']) ? $record['tmb'] : null,
@@ -111,6 +142,7 @@ class Export extends CoreOGraphy\BaseController {
                 'code' => $code,
                 'name' => $name,
                 'time' => str_replace ('-', '', $record['fecha_medición']) . $hour,
+                'textual_time' => $record['fecha_medición'],
                 'glucose' => $record['glucosa']
             ];
         }
@@ -121,24 +153,48 @@ class Export extends CoreOGraphy\BaseController {
             
             $data['measures']['blood_pressure'][] = [
                 'time' => str_replace ('-', '', $record['fecha_medición']),
-                'sistolic' => $record['sistolica'],
+                'textual_time' => $record['fecha_medición'],
+                'systolic' => $record['sistolica'],
                 'diastolic' => $record['diastolica'],
             ];
         }
         
         
-        // Pulse
+        // Pulse and oxygen
         foreach ($historial['pulso_oxigeno'] as $record) {
             $data['measures']['pulse'][] = [
                 'time' => str_replace ('-', '', $record['fecha_medición']),
+                'textual_time' => $record['fecha_medición'],
                 'pulse' => $record['pulso']
             ];
             
             $data['measures']['oxygen'][] = [
                 'time' => str_replace ('-', '', $record['fecha_medición']),
+                'textual_time' => $record['fecha_medición'],
                 'oxygen' => $record['oxigeno']
             ];
         }
+        
+        
+        // Breathing frequency
+        foreach ($historial['frecuencia_respiratoria'] as $record) {
+            $data['measures']['breathing_frequency'][] = [
+                'time' => str_replace ('-', '', $record['fecha_medición']),
+                'textual_time' => $record['fecha_medición'],
+                'breathing_frequency' => $record['fr_respiratoria']
+            ];
+        }
+        
+        
+        // temperature
+        foreach ($historial['temperatura_corporal'] as $record) {
+            $data['measures']['temperature'][] = [
+                'time' => str_replace ('-', '', $record['fecha_medición']),
+                'textual_time' => $record['fecha_medición'],
+                'temperature' => $record['temp_corporal']
+            ];
+        }
+        
         
         
         $this->_response = $this->_response->withAddedHeader ('Content-Type', 'text/xml');

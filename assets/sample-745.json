@@ -1,0 +1,61 @@
+{
+  "apellidos": "p",
+  "temperatura_corporal": [],
+  "frecuencia_respiratoria": [
+    {
+      "fecha_medición": "2017-12-09",
+      "fr_respiratoria": "19"
+    }
+  ],
+  "altura": "190",
+  "enfermedad_tratamiento": [
+    {
+      "enfermedad": "Hipertensión Arterial",
+      "fecha_medición": "2017-12-09",
+      "tratamiento": "Solución - E"
+    },
+    {
+      "enfermedad_tipo": "1",
+      "enfermedad": "Diabetes",
+      "fecha_medición": "2017-11-23",
+      "tratamiento": "Solución - E"
+    }
+  ],
+  "glucosa": [],
+  "genero": "hombre",
+  "peso_corporal": [
+    {
+      "fecha_medición": "2017-12-24",
+      "porcentaje_grasa": "5",
+      "peso": "79",
+      "porcentaje_agua": "5"
+    },
+    {
+      "fecha_medición": "2017-12-09",
+      "porcentaje_grasa": "5",
+      "peso": "66",
+      "porcentaje_agua": "5"
+    }
+  ],
+  "pulso_oxigeno": [
+    {
+      "pulso": "75",
+      "fecha_medición": "2017-12-09",
+      "oxigeno": "98.8"
+    },
+    {
+      "pulso": "79",
+      "fecha_medición": "2017-12-09",
+      "oxigeno": "97.4"
+    }
+  ],
+  "id_paciente": "745",
+  "presion_sanguinea": [
+    {
+      "fecha_medición": "2017-12-09",
+      "sistolica": "120",
+      "diastolica": "75"
+    }
+  ],
+  "f_nacimiento": "1979-09-01"
+}

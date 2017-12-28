@@ -1,5 +1,12 @@
 {
   "apellidos": "García Díaz",
+  "temperatura_corporal": [],
+  "frecuencia_respiratoria": [
+    {
+      "fecha_medición": "2017-12-09",
+      "fr_respiratoria": "18"
+    }
+  ],
   "altura": "163",
   "enfermedad_tratamiento": [
     {
@@ -93,7 +100,7 @@
       "oxigeno": "95.7"
     }
   ],
-  "nombre": "José Antonio",
+  "id_paciente": "770",
   "presion_sanguinea": [
     {
       "fecha_medición": "2017-12-24",

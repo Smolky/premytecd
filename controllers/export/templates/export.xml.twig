@@ -1,44 +1,32 @@
 {% extends "default.xml.twig" %}
 
 {% block content %}
-{# The ClinicalDocument class is the entry point into the CDA R-MIM, the root element of a CDA document. #}
-<ClinicalDocument 
+{# 
+ # The ClinicalDocument class is the entry point into the 
+ # CDA R-MIM, the root element of a CDA document. 
+ #
+ # - xmlns: Namespace
+ # - xmlns:mif: Model intercange format
+ # - xmlns:voc: Vocabulary
+ # - xmlns:xsi: XML Schema
+ #
+ #}
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:mif="urn:hl7-org:v3/mif" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd">
     
-    {# Namespace #}
-    xmlns="urn:hl7-org:v3" 
-    
-    {# Model intercange format #}
-    xmlns:mif="urn:hl7-org:v3/mif"
-    
-    
-    {# Vocabulary #}
-    xmlns:voc="urn:hl7-org:v3/voc" 
-    
-    
-    {# XML Schema #}
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd"
-
->
-    <!-- CDA Header --> {# @see http://www.cdapro.com/know/25007 #}
-    {# Unique ID of the model #}
-    <typeId 
-        
-        {# 
-         # OID of the HL7 model
-         #
-         # Health Level 7 (HL7) registered Refined Message Information Models (RMIMs) 
-         #
-         # @see http://oid-info.com/get/2.16.840.1.113883.1.3
-         #}
-        root="2.16.840.1.113883.1.3" 
-        
-        {# Unique identifier for hierachy CDA Release 2 #}
-        extension="POCD_HD000040" 
-    />
+    <!-- CDA Header {# @see http://www.cdapro.com/know/25007 #} -->
+    {#
+     # realmcode
+     #
+     # The use of “realm” in HL7 standards is focused on 
+     # accounting for regional/geographic differences.
+     #
+     # @see http://www.cdapro.com/know/27195
+     #}
+    <realmCode code="US" />
     
     
     {# Unique ID of the document #}
-    <id root="{{ cda['root'] }}" extension="{{ document['id'] }}"/>
+    <id root="{{ cda['root'] }}" extension="{{ document['id'] }}" />     
     
     
     {# 
@@ -64,8 +52,25 @@
     />
     
     
-    {# Creation time: 20050329224411-0500 #}
+    {# Creation time #}
     <effectiveTime value="{{ cda['created_at']|date('YmdHi') }}"/>
+    
+    
+    {# 
+     # OID of the HL7 model
+     #
+     # Health Level 7 (HL7) registered Refined Message Information Models (RMIMs) 
+     #
+     # Unique identifier for hierachy CDA Release 2
+     #
+     # @see http://oid-info.com/get/2.16.840.1.113883.1.3
+     #}
+    <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040" />
+    
+    
+    {# Templates #}
+    <templateId root="2.16.840.1.113883.10.20.22.1.1"/>
+    <templateId root="2.16.840.1.113883.10.20.22.1.2"/>
     
     
     {# 
@@ -82,8 +87,15 @@
      #          
      # @see https://www.hl7.org/documentcenter/public_temp_CCA2FF45-1C23-BA17-0CC8CAB2827597E8/standards/vocabulary/vocabulary_tables/infrastructure/vocabulary/vs_Confidentiality.html
      #}
+    <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" codeSystemName="HL7 ConfidentialityCode" />
     
-    <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+    
+    {# Title #}
+    <title>Summary of Measurements</title>
+    
+    
+    {# languageCode #}
+    <languageCode code="en-US" />
     
     
     {# 
@@ -92,7 +104,8 @@
      # Describing the participation that connects the patient 
      # information to the clinical document. 
      #
-     # @see http://www.cdapro.com/know/25068 
+     # @see http://www.cdapro.com/know/25068
+     # @see https://github.com/jddamore/HL7-Task-Force-Examples/blob/master/DEMO_Record_Target_Example.xml
      #}
     <recordTarget>
         
@@ -111,6 +124,8 @@
              #
              # Identifier of the patient in the healthcare 
              # organization where they are a patient
+             #
+             # The @root OID below would be specific to an institution's record identifier system
              #}
             <id root="{{ cda['root'] }}.{{ document['id'] }}" extension="{{ patient['id'] }}" />
             
@@ -160,7 +175,7 @@
     {# End of the creator of the document #}
     
     
-    {# custodian #}
+    {# custodian of the document #}
     <custodian>
         <assignedCustodian>
             <representedCustodianOrganization>
@@ -170,7 +185,7 @@
     </custodian>
     {# End of the custodian of the document #}
     
-    
+
     <!-- CDA Body -->
     {# 
      # component
@@ -184,6 +199,12 @@
         {# 
          # The structured body is made up of a series of section 
          # elements. 
+         #
+         # The observation here used the mood-code EVN which 
+         # represents an event
+         #
+         # @see Physical quantities in CDA <http://www.cdapro.com/know/24981>
+         # @see Working with the UCUM code system <http://www.cdapro.com/know/24983>
          #}
         <structuredBody>
         
@@ -192,60 +213,250 @@
                 <!-- Body weight measures -->
                 <section>
                 
+                    <!-- Results Section with Coded Entries Required-->
+                    {#
+                     # The Results section contains the results of observations generated 
+                     # by laboratories, imaging procedures, and other procedures. 
+                     #
+                     # The scope includes observations such as hematology, chemistry, 
+                     # serology, virology, toxicology, microbiology, plain x-ray, ultrasound, 
+                     # CT, MRI, angiography, echocardiography, nuclear medicine, pathology, 
+                     # and procedure observations. 
+                     #
+                     # @see http://ccda.art-decor.org/ccda-html-20120621T170840/tmp-2.16.840.1.113883.10.20.22.2.3.1.html 
+                     #}
+                    <templateId root="2.16.840.1.113883.10.20.22.2.3.1" />
+                    
+                    <code 
+                        code="30954-2" 
+                        codeSystem="2.16.840.1.113883.6.1" 
+                        codeSystemName="LOINC" 
+                        displayName="Relevant diagnostic tests and/or laboratory data" />
+                    
+                    
                     <!-- Title -->
-                    <title>Body Weight Measures</title>
+                    <title>Results of measures</title>
                     
                     
-                    {% for measure in measures['body_weight'] %}
-                        <entry>
-                            <observation classCode="OBS" moodCode="EVN">
-                                <code 
-                                    code="301333006" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
-                                    displayName="peso-corporal"/>
-                                <effectiveTime value="{{ measure['time'] }}"/>
-                                <value xsi:type="PQ" value="{{ measure['weight'] }}" unit="kg" />
-                            </observation>
-                        </entry>
+                    <!--  Representation -->
+                    <text>
+                        <table>
+                            <caption>General body measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Weight (kg)</th>
+                                    <th>Body Mass Index (kg/m2)</th>
+                                    <th>Basal metabolic rate (kcal)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for measure in measures['body_weight'] %}
+                                    <tr>
+                                        <td>{{ measure['textual_time'] }}</td>
+                                        <td>{{ measure['weight'] }}</td>
+                                        <td>{{ measure['bmi'] }}</td>
+                                        <td>{{ measure['bmr'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                         
-                        {% if measure['bmi'] %}
-                        <entry>
-                            <observation classCode="OBS" moodCode="EVN">
-                                <code 
-                                    code="60621009" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
-                                    displayName="BMI. Body Mass Index"/>
-                                <effectiveTime value="{{ measure['time'] }}"/>
-                                <value xsi:type="PQ" value="{{ measure['bmi'] }}" />
-                            </observation>
-                        </entry>
+                        
+                        <table>
+                            <caption>Glucose measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Glucose</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for measure in measures['glucose'] %}
+                                    <tr>
+                                        <td>{{ measure['textual_time'] }}</td>
+                                        <td>{{ measure['glucose'] }}</td>
+                                        <td>{{ measure['name'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        
+                        <table>
+                            <caption>Blood preassure measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Systoilic (mmHg)</th>
+                                    <th>Diastolic (mmHg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for measure in measures['blood_pressure'] %}
+                                    <tr>
+                                        <td>{{ measure['textual_time'] }}</td>
+                                        <td>{{ measure['systolic'] }}</td>
+                                        <td>{{ measure['diastolic'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    
+                    
+                        <table>
+                            <caption>Pulse measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>pulse</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for measure in measures['pulse'] %}
+                                    <tr>
+                                        <td>{{ measure['textual_time'] }}</td>
+                                        <td>{{ measure['pulse'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        
+                        <table>
+                            <caption>Oxygen measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>oxygen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for measure in measures['oxygen'] %}
+                                    <tr>
+                                        <td>{{ measure['textual_time'] }}</td>
+                                        <td>{{ measure['oxygen'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        
+                        <table>
+                            <caption>Breathing frequency measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>breathing-frequency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for measure in measures['breathing_frequency'] %}
+                                    <tr>
+                                        <td>{{ measure['textual_time'] }}</td>
+                                        <td>{{ measure['breathing_frequency'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        
+                        <table>
+                            <caption>Body temperature measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>temperature (º C)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for measure in measures['temperature'] %}
+                                    <tr>
+                                        <td>{{ measure['textual_time'] }}</td>
+                                        <td>{{ measure['temperature'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </text>
+                    
+                    
+                    {# 
+                     # This observation represents body weight: it allows expression 
+                     # in either metric (kg, g) or imperial (lbs, oz.) units. 
+                     # 
+                     # It can be used for a single body weight data point, 
+                     # or for basic descriptive statistics
+                     # 
+                     # @see http://www.openmhealth.org/schemas/omh_body-weight/
+                     #}
+                    {% for measure in measures['body_weight'] %}
+                        {% if measure['weight'] %}
+                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="301333006" 
+                                        codeSystem="{{ snomed['code'] }}"
+                                        codeSystemName="{{ snomed['name'] }}" 
+                                        displayName="peso-corporal" />
+                                    <effectiveTime value="{{ measure['time'] }}"/>
+                                    <value xsi:type="PQ" unit="kg" value="{{ measure['weight'] }}" />
+                                </observation>
+                            </entry>
                         {% endif %}
+                    {% endfor %}
+                    
+                    
+                    {#
+                     # BMI
+                     #
+                     # This schema represents a person's body mass index (BMI), 
+                     # either a single BMI measurement, or the result of aggregating 
+                     # several measurements made over time
+                     #
+                     # @see http://www.openmhealth.org/schemas/omh_body-mass-index/ 
+                     #}
+                    {% for measure in measures['body_weight'] %}
+                        {% if measure['bmi'] %}
+                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="60621009" 
+                                        codeSystem="{{ snomed['code'] }}"
+                                        codeSystemName="{{ snomed['name'] }}" 
+                                        displayName="BMI. Body Mass Index"/>
+                                    <effectiveTime value="{{ measure['time'] }}"/>
+                                    <value xsi:type="PQ" unit="kg/m2" value="{{ measure['bmi'] }}" />
+                                </observation>
+                            </entry>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    
+                    {#
+                     # BMR
+                     #
+                     # Basal metabolic rate (observable entity)
+                     #
+                     # @see http://bioportal.bioontology.org/ontologies/SNOMEDCT?p=classes&conceptid=165109007
+                     #}
+                    {% for measure in measures['body_weight'] %}
                         {% if measure['bmr'] %}
                         <entry>
                             <observation classCode="OBS" moodCode="EVN">
                                 <code 
-                                    code="122869004" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
+                                    code="165109007" 
+                                    codeSystem="{{ snomed['code'] }}"
+                                    codeSystemName="{{ snomed['name'] }}" 
                                     displayName="BMR. Basal Metabolic Rate"/>
                                 <effectiveTime value="{{ measure['time'] }}"/>
-                                <value xsi:type="PQ" value="{{ measure['bmr'] }}" />
+                                <value xsi:type="PQ" unit="kcal" value="{{ measure['bmr'] }}" />
                             </observation>
                         </entry>
                         {% endif %}
                     {% endfor %}
-                
-                </section>
-                <!-- End of weight -->
-                
-                
-                <!-- Glucose measures -->
-                <section>
-                
-                    <!-- Title -->
-                    <title>Glucose measures</title>
                     
                     
                     {% for measure in measures['glucose'] %}
@@ -253,24 +464,14 @@
                             <observation classCode="OBS" moodCode="EVN">
                                 <code 
                                     code="{{ code }}" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
+                                    codeSystem="{{ snomed['code'] }}"
+                                    codeSystemName="{{ snomed['name'] }}" 
                                     displayName="{{ measure['name'] }}"/>
                                 <effectiveTime value="{{ measure['time'] }}"/>
-                                <value xsi:type="PQ" value="{{ measure['glucose'] }}" />
+                                <value xsi:type="PQ" unit="mg/dl" value="{{ measure['glucose'] }}" />
                             </observation>
                         </entry>
                     {% endfor %}
-                
-                </section>
-                <!-- End of glucose measures -->
-                
-                
-                <!-- Blood preassure measures -->
-                <section>
-                
-                    <!-- Title -->
-                    <title>Blood preassure measures</title>
                     
                     
                     {% for measure in measures['blood_pressure'] %}
@@ -279,11 +480,11 @@
                                 <observation classCode="OBS" moodCode="EVN">
                                     <code 
                                         code="271649006" 
-                                        codeSystem="2.16.840.1.113883.6.96"
-                                        codeSystemName="SNOMED CT" 
+                                        codeSystem="{{ snomed['code'] }}"
+                                        codeSystemName="{{ snomed['name'] }}" 
                                         displayName="systolic"/>
                                     <effectiveTime value="{{ measure['time'] }}"/>
-                                    <value xsi:type="PQ" value="{{ measure['systolic'] }}" />
+                                    <value xsi:type="PQ" unit="mmHg" value="{{ measure['systolic'] }}" />
                                 </observation>
                             </entry>
                         {% endif %}
@@ -292,68 +493,78 @@
                                 <observation classCode="OBS" moodCode="EVN">
                                     <code 
                                         code="271650006" 
-                                        codeSystem="2.16.840.1.113883.6.96"
-                                        codeSystemName="SNOMED CT" 
+                                        codeSystem="{{ snomed['code'] }}"
+                                        codeSystemName="{{ snomed['name'] }}" 
                                         displayName="diastolic"/>
                                     <effectiveTime value="{{ measure['time'] }}"/>
-                                    <value xsi:type="PQ" value="{{ measure['diastolic'] }}" />
+                                    <value xsi:type="PQ" unit="mmHg" value="{{ measure['diastolic'] }}" />
                                 </observation>
                             </entry>
                         {% endif %}
                     {% endfor %}
-                
-                </section>
-                <!-- End of blood preassure measures -->
-                
-                
-                <!-- Pulse measures -->
-                <section>
-                
-                    <!-- Title -->
-                    <title>Pulse measures</title>
                     
                     
                     {% for measure in measures['pulse'] %}
                         <entry>
                             <observation classCode="OBS" moodCode="EVN">
                                 <code 
+                                    codeSystem="{{ snomed['code'] }}"
+                                    codeSystemName="{{ snomed['name'] }}" 
                                     code="366199006" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
                                     displayName="pulse"/>
                                 <effectiveTime value="{{ measure['time'] }}"/>
                                 <value xsi:type="PQ" value="{{ measure['pulse'] }}" />
                             </observation>
                         </entry>
                     {% endfor %}
-                
-                </section>
-                <!-- End of pulse meassures -->
-                
-                
-                <!-- Oxygen measures -->
-                <section>
-                
-                    <!-- Title -->
-                    <title>Pulse measures</title>
                     
                     
                     {% for measure in measures['oxygen'] %}
                         <entry>
                             <observation classCode="OBS" moodCode="EVN">
                                 <code 
+                                    codeSystem="{{ snomed['code'] }}"
+                                    codeSystemName="{{ snomed['name'] }}" 
                                     code="104847001" 
-                                    codeSystem="2.16.840.1.113883.6.96"
-                                    codeSystemName="SNOMED CT" 
                                     displayName="oxygen"/>
                                 <effectiveTime value="{{ measure['time'] }}"/>
                                 <value xsi:type="PQ" value="{{ measure['oxygen'] }}" />
                             </observation>
                         </entry>
                     {% endfor %}
+                    
+                    
+                    {% for measure in measures['breathing_frequency'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    codeSystem="{{ snomed['code'] }}"
+                                    codeSystemName="{{ snomed['name'] }}" 
+                                    code="86290005" 
+                                    displayName="Respiratory rate "/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['breathing_frequency'] }}" />
+                            </observation>
+                        </entry>
+                    {% endfor %}
+                    
+                    
+                    {% for measure in measures['temperature'] %}
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    codeSystem="{{ snomed['code'] }}"
+                                    codeSystemName="{{ snomed['name'] }}" 
+                                    code="386725007" 
+                                    displayName="body temperature "/>
+                                <effectiveTime value="{{ measure['time'] }}"/>
+                                <value xsi:type="PQ" value="{{ measure['temperature'] }}" />
+                            </observation>
+                        </entry>
+                    {% endfor %}
                 
                 </section>
-                <!-- End of Oxygen meassures -->
+                <!-- End of measures-->
                 
             </component>
         
