@@ -25,8 +25,25 @@
     <realmCode code="US" />
     
     
+    {# 
+     # OID of the HL7 model
+     #
+     # Health Level 7 (HL7) registered Refined Message Information Models (RMIMs) 
+     #
+     # Unique identifier for hierachy CDA Release 2
+     #
+     # @see http://oid-info.com/get/2.16.840.1.113883.1.3
+     #}
+    <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040" />
+    
+    
+    {# Templates #}
+    <templateId root="2.16.840.1.113883.10.20.22.1.1" />
+    <templateId root="2.16.840.1.113883.10.20.22.1.2" />
+    
+    
     {# Unique ID of the document #}
-    <id root="{{ cda['root'] }}" extension="{{ document['id'] }}" />     
+    <id root="{{ cda['root'] }}" extension="{{ document['id'] }}" />
     
     
     {# 
@@ -57,23 +74,6 @@
     
     
     {# 
-     # OID of the HL7 model
-     #
-     # Health Level 7 (HL7) registered Refined Message Information Models (RMIMs) 
-     #
-     # Unique identifier for hierachy CDA Release 2
-     #
-     # @see http://oid-info.com/get/2.16.840.1.113883.1.3
-     #}
-    <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040" />
-    
-    
-    {# Templates #}
-    <templateId root="2.16.840.1.113883.10.20.22.1.1"/>
-    <templateId root="2.16.840.1.113883.10.20.22.1.2"/>
-    
-    
-    {# 
      # Confidentiality code
      #
      # Privacy metadata indicating the sender's sensitivity classification, 
@@ -90,12 +90,13 @@
     <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" codeSystemName="HL7 ConfidentialityCode" />
     
     
-    {# Title #}
-    <title>Summary of Measurements</title>
-    
-    
     {# languageCode #}
     <languageCode code="en-US" />
+    
+    
+    {# Version @see http://www.cdapro.com/know/25007 #}
+    <setId root="{{ cda['root'] }}" extension="1" />
+    <versionNumber value="1"/>
     
     
     {# 
@@ -169,7 +170,7 @@
         
         {# Author #}
         <assignedAuthor>
-            <id root="{{ cda['root'] }}.{{ document['id'] }}" extension="{{ cda['author']['id'] }}" />
+            <id root="{{ cda['author'] }}" extension="1" />
         </assignedAuthor>
     </author>
     {# End of the creator of the document #}
@@ -185,7 +186,7 @@
     </custodian>
     {# End of the custodian of the document #}
     
-
+    
     <!-- CDA Body -->
     {# 
      # component
@@ -210,7 +211,7 @@
         
             <component>
 
-                <!-- Body weight measures -->
+                <!-- Measures -->
                 <section>
                 
                     <!-- Results Section with Coded Entries Required-->
@@ -227,6 +228,7 @@
                      #}
                     <templateId root="2.16.840.1.113883.10.20.22.2.3.1" />
                     
+                    
                     <code 
                         code="30954-2" 
                         codeSystem="2.16.840.1.113883.6.1" 
@@ -240,6 +242,7 @@
                     
                     <!--  Representation -->
                     <text>
+                        {% if measures['body_weight'] %}
                         <table>
                             <caption>General body measurements</caption>
                             <thead>
@@ -261,8 +264,9 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% endif %}
                         
-                        
+                        {% if measures['glucose'] %}
                         <table>
                             <caption>Glucose measurements</caption>
                             <thead>
@@ -282,8 +286,10 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% endif %}
                         
                         
+                        {% if measures['blood_pressure'] %}
                         <table>
                             <caption>Blood preassure measurements</caption>
                             <thead>
@@ -303,8 +309,10 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                    
-                    
+                        {% endif %}
+                        
+                        
+                        {% if measures['pulse'] %}
                         <table>
                             <caption>Pulse measurements</caption>
                             <thead>
@@ -322,8 +330,10 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% endif %}
                         
                         
+                        {% if measures['oxygen'] %}
                         <table>
                             <caption>Oxygen measurements</caption>
                             <thead>
@@ -341,8 +351,10 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% endif %}
                         
                         
+                        {% if measures['breathing_frequency'] %}
                         <table>
                             <caption>Breathing frequency measurements</caption>
                             <thead>
@@ -360,8 +372,10 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% endif %}
                         
                         
+                        {% if measures['temperature'] %}
                         <table>
                             <caption>Body temperature measurements</caption>
                             <thead>
@@ -379,6 +393,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% endif %}
                         
                     </text>
                     
@@ -463,7 +478,7 @@
                         <entry>
                             <observation classCode="OBS" moodCode="EVN">
                                 <code 
-                                    code="{{ code }}" 
+                                    code="{{ snomed['code'] }}" 
                                     codeSystem="{{ snomed['code'] }}"
                                     codeSystemName="{{ snomed['name'] }}" 
                                     displayName="{{ measure['name'] }}"/>
