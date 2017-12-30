@@ -20,7 +20,9 @@ require 'config.php';
  
 // Constants
 define ('PRODUCTION', $production);
+define ('BASE_DIR', __DIR__);
 define ('BASE_URL', $base_url);
+define ('FULL_URL', (isset ($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . BASE_URL);
 define ('VERSION', 0.1);
 
 
@@ -79,7 +81,7 @@ Twig_Autoloader::register();
 $twig_configuration = array ();
 if (PRODUCTION) {
     $twig_configuration = array (
-        'cache' => __DIR__ . '/cache/templates',
+        'cache' => BASE_DIR . '/cache/templates',
         'auto_reload' => true
     );
 }
@@ -159,7 +161,7 @@ if ($match && is_callable ($match['target'])) {
 } else {
 
     // No controller was found, using a 404 controller
-    require __DIR__ . '/controllers/maintenance/NotFound404.php';
+    require BASE_DIR . '/controllers/maintenance/NotFound404.php';
     $controller = new NotFound404 ();
     
 }

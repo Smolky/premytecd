@@ -172,6 +172,7 @@
         <assignedAuthor>
             <id root="{{ cda['author'] }}" extension="1" />
         </assignedAuthor>
+        
     </author>
     {# End of the creator of the document #}
     
@@ -208,10 +209,10 @@
          # @see Working with the UCUM code system <http://www.cdapro.com/know/24983>
          #}
         <structuredBody>
-        
+            
+            <!-- Measures -->
             <component>
-
-                <!-- Measures -->
+                
                 <section>
                 
                     <!-- Results Section with Coded Entries Required-->
@@ -571,17 +572,68 @@
                                     codeSystem="{{ snomed['code'] }}"
                                     codeSystemName="{{ snomed['name'] }}" 
                                     code="386725007" 
-                                    displayName="body temperature "/>
-                                <effectiveTime value="{{ measure['time'] }}"/>
+                                    displayName="body temperature" />
+                                <effectiveTime value="{{ measure['time'] }}" />
                                 <value xsi:type="PQ" value="{{ measure['temperature'] }}" />
                             </observation>
                         </entry>
                     {% endfor %}
                 
                 </section>
-                <!-- End of measures-->
                 
             </component>
+            <!-- End of measures-->
+            
+            
+            <!-- Substances administration -->
+            <component>
+                
+                <section>
+                
+                    {# substanceAdministration
+                     # 
+                     # A type of procedure that involves a performer 
+                     # introducing or otherwise applying a material into or to the subject
+                     # 
+                     # @see http://www.cdapro.com/know/27571
+                     # @see http://www.cdapro.com/know/27077
+                     # @see https://github.com/HL7/C-CDA-Examples/blob/master/General/Narrative%20Reference%20-%20SubstanceAdministration/SubstanceAdministration%20text%20and%20originalText%20references%20(C-CDAR2.1).xml
+                     # @see http://ccda.art-decor.org/ccda-html-20150727T182455/tmp-2.16.840.1.113883.10.20.22.4.16-2013-01-31T000000.html
+                     #}
+                    {% for substance in substances %}
+                        <entry>
+                            <substanceAdministration classCode="SBADM" moodCode="EVN">
+                                
+                                {# Effective time #}
+                                <effectiveTime value="{{ substance['time'] }}" />
+                                
+                                
+                                {# Dose Quantity #}
+                                <doseQuantity value="{{ substance['doses'] }}" />
+                                
+                                
+                                {# Consumable #}
+                                <consumable>
+                                    <manufacturedProduct classCode="MANU">
+                                        <manufacturedMaterial>
+                                            <code 
+                                                codeSystem="{{ rxnorm['code'] }}"
+                                                codeSystemName="{{ rxnorm['name'] }}"
+                                                code="{{ substance['drug']['code'] }}"
+                                                displayName="{{ substance['drug']['name'] }}"
+                                            />
+                                        </manufacturedMaterial>
+                                    </manufacturedProduct>
+                                </consumable>
+                                
+                            </substanceAdministration>
+                        </entry>
+                    {% endfor %}
+                
+                </section>
+            
+            </component>
+            <!-- End of substance administration -->
         
         </structuredBody>
         <!-- End of structured body -->
