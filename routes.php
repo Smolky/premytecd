@@ -1,19 +1,19 @@
 <?php
 
-// Export module
 $router->map ('GET', '/', function () {
-
-    // Load the classifier page
     require __DIR__ . '/controllers/export/Export.php';
     return new Export ();
     
 });
 
-
-$router->map ('GET', '/[:sample]?', function ($sample='') {
-
-    // Load the classifier page
-    require __DIR__ . '/controllers/export/Export.php';
-    return new Export ($sample);
+$router->map ('GET', '/rxcodes', function () {
+    require __DIR__ . '/controllers/scripts/getRxNormCodes.php';
+    return new getRxNormCodes ();
     
 });
+
+$router->map ('GET', '/[:sample]?', function ($sample='') {
+    require __DIR__ . '/controllers/export/Export.php';
+    return new Export ($sample);
+});
+
