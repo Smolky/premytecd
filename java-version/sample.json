@@ -1,0 +1,225 @@
+{
+  "apellidos": "García Díaz",
+  "frecuencia_respiratoria": [
+    {
+      "fecha_medición": "2017-12-09",
+      "fr_respiratoria": "18",
+      "id_registro": 852
+    }
+  ],
+  "glucosa": [
+    {
+      "estado": "ayuna",
+      "fecha_medición": "2017-12-24",
+      "hora": "08:30 PM",
+      "glucosa": "99",
+      "id_registro": 991
+    },
+    {
+      "estado": "postprandial",
+      "fecha_medición": "2017-12-24",
+      "hora": "12:30 AM",
+      "glucosa": "115",
+      "id_registro": 992
+    },
+    {
+      "estado": "ayuna",
+      "fecha_medición": "2017-12-23",
+      "hora": "08:30 AM",
+      "glucosa": "79",
+      "id_registro": 993
+    }
+  ],
+  "pulso_oxigeno": [
+    {
+      "pulso": "80",
+      "fecha_medición": "2017-12-09",
+      "id_registro": 870,
+      "oxigeno": "98.3"
+    },
+    {
+      "pulso": "78",
+      "fecha_medición": "2017-12-09",
+      "id_registro": 2001,
+      "oxigeno": "95.7"
+    }
+  ],
+  "registro_medicacion": [
+    {
+      "id_medicamento": "1023",
+      "fecha_medición": "2017-12-31",
+      "hora_medición": "01:30 PM",
+      "id_registro": 1056,
+      "cantidad": "2"
+    },
+    {
+      "id_medicamento": "1019",
+      "fecha_medición": "2017-12-30",
+      "hora_medición": "12:00 PM",
+      "id_registro": 1053,
+      "cantidad": "1"
+    },
+    {
+      "id_medicamento": "1019",
+      "fecha_medición": "2017-12-30",
+      "hora_medición": "05:00 PM",
+      "id_registro": 1054,
+      "cantidad": "2"
+    },
+    {
+      "id_medicamento": "1019",
+      "fecha_medición": "2017-12-30",
+      "hora_medición": "10:00 PM",
+      "id_registro": 1055,
+      "cantidad": "1"
+    },
+    {
+      "id_medicamento": "1026",
+      "fecha_medición": "2017-12-12",
+      "hora_medición": "03:30 PM",
+      "id_registro": 1057,
+      "cantidad": "2"
+    },
+    {
+      "id_medicamento": "1026",
+      "fecha_medición": "2017-11-27",
+      "hora_medición": "05:30 PM",
+      "id_registro": 1058,
+      "cantidad": "1"
+    }
+  ],
+  "presion_sanguinea": [
+    {
+      "fecha_medición": "2017-12-24",
+      "sistolica": "115",
+      "id_registro": 990,
+      "diastolica": "80"
+    },
+    {
+      "fecha_medición": "2017-12-09",
+      "sistolica": "120",
+      "id_registro": 867,
+      "diastolica": "75"
+    }
+  ],
+  "f_nacimiento": "2017-11-29",
+  "temperatura_corporal": [],
+  "altura": "163",
+  "enfermedad_tratamiento": [
+    {
+      "enfermedad_tipo": "D",
+      "enfermedad": "Hepatitis",
+      "fecha_medición": "2017-12-23",
+      "tratamiento": "Solución - E"
+    },
+    {
+      "enfermedad": "Hipertensión Arterial",
+      "fecha_medición": "2017-12-09",
+      "tratamiento": "Solución - C"
+    },
+    {
+      "enfermedad_tipo": "1",
+      "enfermedad": "Diabetes",
+      "fecha_medición": "2017-11-02",
+      "tratamiento": "Solución - A"
+    }
+  ],
+  "genero": "hombre",
+  "peso_corporal": [
+    {
+      "fecha_medición": "2017-12-24",
+      "porcentaje_grasa": "4",
+      "peso": "71",
+      "porcentaje_agua": "6",
+      "tmb": "1670",
+      "id_registro": 994,
+      "imc": "26.72"
+    },
+    {
+      "fecha_medición": "2017-12-23",
+      "porcentaje_grasa": "5",
+      "peso": "67",
+      "porcentaje_agua": "5",
+      "id_registro": 989
+    },
+    {
+      "fecha_medición": "2017-12-09",
+      "porcentaje_grasa": "5",
+      "peso": "77",
+      "porcentaje_agua": "5",
+      "id_registro": 881
+    },
+    {
+      "fecha_medición": "2017-10-30",
+      "porcentaje_grasa": "4",
+      "peso": "70",
+      "porcentaje_agua": "6",
+      "id_registro": 987
+    },
+    {
+      "fecha_medición": "2017-09-25",
+      "porcentaje_grasa": "4",
+      "peso": "65",
+      "porcentaje_agua": "6",
+      "id_registro": 986
+    },
+    {
+      "fecha_medición": "2017-09-12",
+      "porcentaje_grasa": "4",
+      "peso": "71",
+      "porcentaje_agua": "5",
+      "id_registro": 988
+    }
+  ],
+  "nombres_medicamentos": [
+    {
+      "id_medicamento": "1026",
+      "categoria": "Inhibidores de la DPP-4",
+      "nombre": "Januvia",
+      "familia": "Sitagliptina"
+    },
+    {
+      "id_medicamento": "1023",
+      "categoria": "secretagogos",
+      "nombre": "repaglinida",
+      "familia": "Glinidas"
+    },
+    {
+      "id_medicamento": "1019",
+      "categoria": "tiazolidinedionas ",
+      "nombre": "Avandia",
+      "familia": "Rosiglitazona"
+    }
+  ],
+  "id_paciente": "770",
+  "comentarios": [
+    {
+      "hora": "00:53:53",
+      "id_registro": 994,
+      "fecha_creacion": "2017-12-29",
+      "comentario": "Perfecto, est&aacute;s recuperando tu peso. Enhorabuena",
+      "autor": "Administrator User"
+    },
+    {
+      "hora": "00:54:38",
+      "id_registro": 994,
+      "fecha_creacion": "2017-12-29",
+      "comentario": "Debes seguir as&iacute;, siempre con moderaci&oacute;n.",
+      "autor": "Administrator User"
+    },
+    {
+      "hora": "00:55:30",
+      "id_registro": 993,
+      "fecha_creacion": "2017-12-29",
+      "comentario": "Estate atento a los niveles de az&uacute;car.",
+      "autor": "Administrator User"
+    },
+    {
+      "hora": "00:56:15",
+      "id_registro": 990,
+      "fecha_creacion": "2017-12-29",
+      "comentario": "Sigue as&iacute;, siempre con precauci&oacute;n.",
+      "autor": "Administrator User"
+    }
+  ]
+}
