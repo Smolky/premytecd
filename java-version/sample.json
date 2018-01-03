@@ -46,6 +46,20 @@
   ],
   "registro_medicacion": [
     {
+      "id_medicamento": "1031",
+      "fecha_medición": "2018-01-03",
+      "hora_medición": "06:45 PM",
+      "id_registro": 1066,
+      "cantidad": "3"
+    },
+    {
+      "id_medicamento": "1022",
+      "fecha_medición": "2018-01-03",
+      "hora_medición": "06:45 PM",
+      "id_registro": 1065,
+      "cantidad": "2"
+    },
+    {
       "id_medicamento": "1023",
       "fecha_medición": "2017-12-31",
       "hora_medición": "01:30 PM",
@@ -173,6 +187,14 @@
   ],
   "nombres_medicamentos": [
     {
+      "id_RxNorm": "33738",
+      "id_medicamento": "1031",
+      "categoria": "tiazolidinedionas ",
+      "nombre": "rosiglitazona",
+      "familia": "Glitazonas"
+    },
+    {
+      "id_RxNorm": "858037",
       "id_medicamento": "1026",
       "categoria": "Inhibidores de la DPP-4",
       "nombre": "Januvia",
@@ -183,6 +205,13 @@
       "categoria": "secretagogos",
       "nombre": "repaglinida",
       "familia": "Glinidas"
+    },
+    {
+      "id_RxNorm": "73044",
+      "id_medicamento": "1022",
+      "categoria": "secretagogos",
+      "nombre": "glimepirida",
+      "familia": "Sulfonilureas"
     },
     {
       "id_medicamento": "1019",

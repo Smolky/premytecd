@@ -34,6 +34,20 @@ public class CDAExport {
 		JSONObject historial = new JSONObject (historial_raw);
 		
 		
+		// Get drugs names
+		Map<String, String> drugs_names = new HashMap<String, String>();
+		Map<String, String> drugs_codes = new HashMap<String, String>();
+		
+		arr = historial.getJSONArray("nombres_medicamentos");
+		for (int i = 0; i < arr.length(); i++) {
+			JSONObject record = arr.getJSONObject(i);
+			if (record.has ("id_RxNorm")) {
+				drugs_names.put(record.getString("id_medicamento"), record.getString("nombre"));
+				drugs_codes.put(record.getString("id_medicamento"), record.getString("id_RxNorm"));
+			}
+		}
+		
+		
 		// Get date of the document
 		String documentDate = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
 		
@@ -188,13 +202,11 @@ public class CDAExport {
 			JSONObject record = arr.getJSONObject(i);
 			substanceInfo.put("textual_time", record.getString("fecha_medición"));
 			substanceInfo.put("time", this.getCDACompilantTime(record));
-			substanceInfo.put("drug_code", "");
-			substanceInfo.put("drug_name", "");
+			substanceInfo.put("drug_code", drugs_codes.getOrDefault(record.getString("id_medicamento"), ""));
+			substanceInfo.put("drug_name", drugs_names.getOrDefault(record.getString("id_medicamento"), ""));
 			substanceInfo.put("doses", record.has ("cantidad") ? record.getString("cantidad") : "1");
 			substances.add(substanceInfo);
 		}
-		
-        
 		
 		
 		// Assign model
