@@ -1,9 +1,13 @@
 <?php
 
-$router->map ('GET', '/', function () {
+$router->map ('GET', '/export', function () {
     require __DIR__ . '/controllers/export/Export.php';
     return new Export ();
-    
+});
+
+$router->map ('GET', '/import', function () {
+    require __DIR__ . '/controllers/import/Import.php';
+    return new Import ();
 });
 
 $router->map ('GET', '/rxcodes', function () {

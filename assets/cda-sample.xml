@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:mif="urn:hl7-org:v3/mif" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd">
+    
+    <!-- CDA Header  -->
+    <realmCode code="US" />
+
+
+    <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040" />
+    <templateId root="2.16.840.1.113883.10.20.22.1.1" />
+    <templateId root="2.16.840.1.113883.10.20.22.1.2" />
+    
+    
+    <id root="2.16.840.1.113883.19" extension="5" />
+    
+    
+    <code 
+        code="85353-1" 
+        codeSystem="2.16.840.1.113883.6.1" 
+        codeSystemName="LOINC"
+        displayName="Vital signs, weight, height, head circumference, oxygen saturation and BMI panel"
+    />
+    
+    
+        <effectiveTime value="201801151138"/>
+    
+    
+        <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" codeSystemName="HL7 ConfidentialityCode" />
+    
+    
+        <languageCode code="en-US" />
+    
+    
+        <setId root="2.16.840.1.113883.19" extension="1" />
+    <versionNumber value="1"/>
+    
+    
+        <recordTarget>
+        
+                <patientRole>
+            
+                        <id root="2.16.840.1.113883.19.5" extension="770" />
+            
+            
+                        <patient>
+            
+                                <name>García Díaz</name>
+                
+                
+                                <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" />
+                
+                
+                                <birthTime value="20171129" />
+                
+            </patient>
+                    
+        </patientRole>
+        
+    </recordTarget>
+        
+    
+        <author>
+    
+                <time value="201801151138"/>
+        
+        
+                <assignedAuthor>
+            <id root="2.16.840.1.113883.19" extension="1" />
+        </assignedAuthor>
+        
+    </author>
+        
+    
+        <custodian>
+        <assignedCustodian>
+            <representedCustodianOrganization>
+                <id root="2.16.840.1.113883.19"/>
+            </representedCustodianOrganization>
+        </assignedCustodian>
+    </custodian>
+        
+    
+    <!-- CDA Body -->
+        
+    <component>
+    
+                <structuredBody>
+            
+            <!-- Measures -->
+            <component>
+                
+                <section>
+                
+                    <!-- Results Section with Coded Entries Required-->
+                                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" />
+                    
+                    
+                    <code 
+                        code="30954-2" 
+                        codeSystem="2.16.840.1.113883.6.1" 
+                        codeSystemName="LOINC" 
+                        displayName="Relevant diagnostic tests and/or laboratory data" />
+                    
+                    
+                    <!-- Title -->
+                    <title>Results of measures</title>
+                    
+                    
+                    <!--  Representation -->
+                    <text>
+                                                <table>
+                            <caption>General body measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Weight (kg)</th>
+                                    <th>Body Mass Index (kg/m2)</th>
+                                    <th>Basal metabolic rate (kcal)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td>2017-12-24</td>
+                                        <td>71</td>
+                                        <td>26.72</td>
+                                        <td>1670</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-12-23</td>
+                                        <td>67</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-12-09</td>
+                                        <td>77</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-10-30</td>
+                                        <td>70</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-09-25</td>
+                                        <td>65</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-09-12</td>
+                                        <td>71</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                                            </tbody>
+                        </table>
+                                                
+                                                <table>
+                            <caption>Glucose measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Glucose</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td>2017-12-24</td>
+                                        <td>99</td>
+                                        <td>glucose-fasting</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-12-24</td>
+                                        <td>115</td>
+                                        <td>glucose</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-12-23</td>
+                                        <td>79</td>
+                                        <td>glucose-fasting</td>
+                                    </tr>
+                                                            </tbody>
+                        </table>
+                                                
+                        
+                                                <table>
+                            <caption>Blood preassure measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Systoilic (mmHg)</th>
+                                    <th>Diastolic (mmHg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td>2017-12-24</td>
+                                        <td>115</td>
+                                        <td>80</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-12-09</td>
+                                        <td>120</td>
+                                        <td>75</td>
+                                    </tr>
+                                                            </tbody>
+                        </table>
+                                                
+                        
+                                                <table>
+                            <caption>Pulse measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>pulse</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td>2017-12-09</td>
+                                        <td>80</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-12-09</td>
+                                        <td>78</td>
+                                    </tr>
+                                                            </tbody>
+                        </table>
+                                                
+                        
+                                                <table>
+                            <caption>Oxygen measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>oxygen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td>2017-12-09</td>
+                                        <td>98.3</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>2017-12-09</td>
+                                        <td>95.7</td>
+                                    </tr>
+                                                            </tbody>
+                        </table>
+                                                
+                        
+                                                <table>
+                            <caption>Breathing frequency measurements</caption>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>breathing-frequency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td>2017-12-09</td>
+                                        <td>18</td>
+                                    </tr>
+                                                            </tbody>
+                        </table>
+                                                
+                        
+                                                
+                    </text>
+                    
+                    
+                                                                                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="301333006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="peso-corporal" />
+                                    <effectiveTime value="201712240000"/>
+                                    <value xsi:type="PQ" unit="kg" value="71" />
+                                </observation>
+                            </entry>
+                                                                                                <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="301333006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="peso-corporal" />
+                                    <effectiveTime value="201712230000"/>
+                                    <value xsi:type="PQ" unit="kg" value="67" />
+                                </observation>
+                            </entry>
+                                                                                                <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="301333006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="peso-corporal" />
+                                    <effectiveTime value="201712090000"/>
+                                    <value xsi:type="PQ" unit="kg" value="77" />
+                                </observation>
+                            </entry>
+                                                                                                <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="301333006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="peso-corporal" />
+                                    <effectiveTime value="201710300000"/>
+                                    <value xsi:type="PQ" unit="kg" value="70" />
+                                </observation>
+                            </entry>
+                                                                                                <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="301333006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="peso-corporal" />
+                                    <effectiveTime value="201709250000"/>
+                                    <value xsi:type="PQ" unit="kg" value="65" />
+                                </observation>
+                            </entry>
+                                                                                                <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="301333006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="peso-corporal" />
+                                    <effectiveTime value="201709120000"/>
+                                    <value xsi:type="PQ" unit="kg" value="71" />
+                                </observation>
+                            </entry>
+                                                                
+                    
+                                                                                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="60621009" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="BMI. Body Mass Index"/>
+                                    <effectiveTime value="201712240000"/>
+                                    <value xsi:type="PQ" unit="kg/m2" value="26.72" />
+                                </observation>
+                            </entry>
+                                                                                                                                                                                                                                                                                            
+                    
+                                                                                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="165109007" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="BMR. Basal Metabolic Rate"/>
+                                <effectiveTime value="201712240000"/>
+                                <value xsi:type="PQ" unit="kcal" value="1670" />
+                            </observation>
+                        </entry>
+                                                                                                                                                                                                                                                                                            
+                    
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="2.16.840.1.113883.6.96" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="glucose-fasting"/>
+                                <effectiveTime value="20171224830"/>
+                                <value xsi:type="PQ" unit="mg/dl" value="99" />
+                            </observation>
+                        </entry>
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="2.16.840.1.113883.6.96" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="glucose"/>
+                                <effectiveTime value="201712241230"/>
+                                <value xsi:type="PQ" unit="mg/dl" value="115" />
+                            </observation>
+                        </entry>
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    code="2.16.840.1.113883.6.96" 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    displayName="glucose-fasting"/>
+                                <effectiveTime value="20171223830"/>
+                                <value xsi:type="PQ" unit="mg/dl" value="79" />
+                            </observation>
+                        </entry>
+                                        
+                    
+                                                                        <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="271649006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="systolic"/>
+                                    <effectiveTime value="201712240000"/>
+                                    <value xsi:type="PQ" unit="mmHg" value="115" />
+                                </observation>
+                            </entry>
+                                                                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="271650006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="diastolic"/>
+                                    <effectiveTime value="201712240000"/>
+                                    <value xsi:type="PQ" unit="mmHg" value="80" />
+                                </observation>
+                            </entry>
+                                                                                                <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="271649006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="systolic"/>
+                                    <effectiveTime value="201712090000"/>
+                                    <value xsi:type="PQ" unit="mmHg" value="120" />
+                                </observation>
+                            </entry>
+                                                                            <entry>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code 
+                                        code="271650006" 
+                                        codeSystem="2.16.840.1.113883.6.96"
+                                        codeSystemName="SNOMED CT" 
+                                        displayName="diastolic"/>
+                                    <effectiveTime value="201712090000"/>
+                                    <value xsi:type="PQ" unit="mmHg" value="75" />
+                                </observation>
+                            </entry>
+                                                                
+                    
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    code="366199006" 
+                                    displayName="pulse"/>
+                                <effectiveTime value="201712090000"/>
+                                <value xsi:type="PQ" value="80" />
+                            </observation>
+                        </entry>
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    code="366199006" 
+                                    displayName="pulse"/>
+                                <effectiveTime value="201712090000"/>
+                                <value xsi:type="PQ" value="78" />
+                            </observation>
+                        </entry>
+                                        
+                    
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    code="104847001" 
+                                    displayName="oxygen"/>
+                                <effectiveTime value="201712090000"/>
+                                <value xsi:type="PQ" value="98.3" />
+                            </observation>
+                        </entry>
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    code="104847001" 
+                                    displayName="oxygen"/>
+                                <effectiveTime value="201712090000"/>
+                                <value xsi:type="PQ" value="95.7" />
+                            </observation>
+                        </entry>
+                                        
+                    
+                                            <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <code 
+                                    codeSystem="2.16.840.1.113883.6.96"
+                                    codeSystemName="SNOMED CT" 
+                                    code="86290005" 
+                                    displayName="Respiratory rate "/>
+                                <effectiveTime value="20171209"/>
+                                <value xsi:type="PQ" value="18" />
+                            </observation>
+                        </entry>
+                                        
+                    
+                                    
+                </section>
+                
+            </component>
+            <!-- End of measures-->
+            
+            
+            <!-- Substances administration -->
+            <component>
+                
+                <section>
+                
+                                                                <entry>
+                            <substanceAdministration classCode="SBADM" moodCode="EVN">
+                                
+                                                                <effectiveTime value="201712310000" />
+                                
+                                
+                                                                <doseQuantity value="2" />
+                                
+                                
+                                                                <consumable>
+                                    <manufacturedProduct classCode="MANU">
+                                        <manufacturedMaterial>
+                                            <code 
+                                                codeSystem="2.16.840.1.113883.6.88"
+                                                codeSystemName="RxNorm"
+                                                code="73044"
+                                                displayName="repaglinida"
+                                            />
+                                        </manufacturedMaterial>
+                                    </manufacturedProduct>
+                                </consumable>
+                                
+                            </substanceAdministration>
+                        </entry>
+                                            <entry>
+                            <substanceAdministration classCode="SBADM" moodCode="EVN">
+                                
+                                                                <effectiveTime value="201712300000" />
+                                
+                                
+                                                                <doseQuantity value="1" />
+                                
+                                
+                                                                <consumable>
+                                    <manufacturedProduct classCode="MANU">
+                                        <manufacturedMaterial>
+                                            <code 
+                                                codeSystem="2.16.840.1.113883.6.88"
+                                                codeSystemName="RxNorm"
+                                                code="261455"
+                                                displayName="Avandia"
+                                            />
+                                        </manufacturedMaterial>
+                                    </manufacturedProduct>
+                                </consumable>
+                                
+                            </substanceAdministration>
+                        </entry>
+                                            <entry>
+                            <substanceAdministration classCode="SBADM" moodCode="EVN">
+                                
+                                                                <effectiveTime value="201712300000" />
+                                
+                                
+                                                                <doseQuantity value="2" />
+                                
+                                
+                                                                <consumable>
+                                    <manufacturedProduct classCode="MANU">
+                                        <manufacturedMaterial>
+                                            <code 
+                                                codeSystem="2.16.840.1.113883.6.88"
+                                                codeSystemName="RxNorm"
+                                                code="261455"
+                                                displayName="Avandia"
+                                            />
+                                        </manufacturedMaterial>
+                                    </manufacturedProduct>
+                                </consumable>
+                                
+                            </substanceAdministration>
+                        </entry>
+                                            <entry>
+                            <substanceAdministration classCode="SBADM" moodCode="EVN">
+                                
+                                                                <effectiveTime value="201712300000" />
+                                
+                                
+                                                                <doseQuantity value="1" />
+                                
+                                
+                                                                <consumable>
+                                    <manufacturedProduct classCode="MANU">
+                                        <manufacturedMaterial>
+                                            <code 
+                                                codeSystem="2.16.840.1.113883.6.88"
+                                                codeSystemName="RxNorm"
+                                                code="261455"
+                                                displayName="Avandia"
+                                            />
+                                        </manufacturedMaterial>
+                                    </manufacturedProduct>
+                                </consumable>
+                                
+                            </substanceAdministration>
+                        </entry>
+                                            <entry>
+                            <substanceAdministration classCode="SBADM" moodCode="EVN">
+                                
+                                                                <effectiveTime value="201712120000" />
+                                
+                                
+                                                                <doseQuantity value="2" />
+                                
+                                
+                                                                <consumable>
+                                    <manufacturedProduct classCode="MANU">
+                                        <manufacturedMaterial>
+                                            <code 
+                                                codeSystem="2.16.840.1.113883.6.88"
+                                                codeSystemName="RxNorm"
+                                                code="638596"
+                                                displayName="Januvia"
+                                            />
+                                        </manufacturedMaterial>
+                                    </manufacturedProduct>
+                                </consumable>
+                                
+                            </substanceAdministration>
+                        </entry>
+                                            <entry>
+                            <substanceAdministration classCode="SBADM" moodCode="EVN">
+                                
+                                                                <effectiveTime value="201711270000" />
+                                
+                                
+                                                                <doseQuantity value="1" />
+                                
+                                
+                                                                <consumable>
+                                    <manufacturedProduct classCode="MANU">
+                                        <manufacturedMaterial>
+                                            <code 
+                                                codeSystem="2.16.840.1.113883.6.88"
+                                                codeSystemName="RxNorm"
+                                                code="638596"
+                                                displayName="Januvia"
+                                            />
+                                        </manufacturedMaterial>
+                                    </manufacturedProduct>
+                                </consumable>
+                                
+                            </substanceAdministration>
+                        </entry>
+                                    
+                </section>
+            
+            </component>
+            <!-- End of substance administration -->
+        
+        </structuredBody>
+        <!-- End of structured body -->
+        
+    </component>
+
+</ClinicalDocument>

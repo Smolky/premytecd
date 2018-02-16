@@ -37,6 +37,13 @@ if (PRODUCTION) {
 }
 
 
+// Config PHP
+set_time_limit (0);
+ini_set ('default_charset', 'UTF-8');
+mb_internal_encoding ('UTF-8');
+mb_regex_encoding ('UTF-8');
+
+
 // Require vendor
 require 'vendor/autoload.php';
 
