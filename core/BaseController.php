@@ -73,7 +73,12 @@ abstract class BaseController {
         
             $twig = $container['templates'];
             $loader = $container['loader'];
-            $loader->addPath ($class_path . '/templates/');
+            
+            // Attach to the templates
+            if (is_dir ($class_path . '/templates/')) {
+                $loader->addPath ($class_path . '/templates/');
+            }       
+            
 
             // Store
             $this->_template = $twig;

@@ -17,6 +17,10 @@ use Symfony\Component\Debug\Debug;
 // Require configuration
 require 'config.php';
 
+
+// Disable memory limit
+set_time_limit (0);
+
  
 // Constants
 define ('PRODUCTION', $production);

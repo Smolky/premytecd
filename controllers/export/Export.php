@@ -28,8 +28,10 @@ class Export extends CoreOGraphy\BaseController {
         
         // Delegate on parent constructor
         parent::__construct ();
+    
     }
     
+
     
     /**
      * handleRequest
@@ -76,14 +78,29 @@ class Export extends CoreOGraphy\BaseController {
         }
         
         
-        // Convert to JSON
-        $historial = json_decode ($historial, true);
+        // Get CDA Data
+        $cda = $this->process (json_decode ($historial, true));
+
+        
+        
+        // Return response
+        $this->_response = $this->_response->withAddedHeader ('Content-Type', 'text/xml');
+        $this->_response->getBody ()->write ($cda);
+    
+    }
+    
+    
+    /**
+     * process
+     */
+    public function process ($historial) {
+        
         
         
         // Retrieve information about drugs
         /** @var $drugs Array */
         $drugs = [];
-        foreach ($historial['nombres_medicamentos'] as $drug) {
+        if ($historial['nombres_medicamentos']) foreach ($historial['nombres_medicamentos'] as $drug) {
             $drugs[$drug['id_medicamento']] = [
                 'id' => $drug['id_medicamento'],
                 'category' => $drug['categoria'],
@@ -99,6 +116,9 @@ class Export extends CoreOGraphy\BaseController {
         foreach (['nombre', 'apellidos', 'genero', 'birth'] as $field) {
             $historial[$field] = isset ($historial[$field]) ? $historial[$field] : '';
         }
+        
+
+        
         
         
         /** @var $data Array The information to provide to the template */
@@ -142,6 +162,7 @@ class Export extends CoreOGraphy\BaseController {
         ];
         
         
+
         
         // Init measure vars
         foreach ([
@@ -254,12 +275,12 @@ class Export extends CoreOGraphy\BaseController {
                 'doses' => $record['cantidad']
             ];
         }
-        
-        
-        // Return response
-        $this->_response = $this->_response->withAddedHeader ('Content-Type', 'text/xml');
-        $this->_response->getBody ()->write ($this->_template->render ('export.xml.twig', $data));
+    
+
+        return $this->_template->render ('export.xml.twig', $data);
+    
     }
+    
     
     
     /**

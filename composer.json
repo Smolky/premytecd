@@ -21,7 +21,8 @@
         "symfony/dom-crawler": "3.*",
         "symfony/css-selector": "3.*",
         "philipp15b/php-i18n": "*",
-        "zendframework/zend-diactoros": "*"
+        "zendframework/zend-diactoros": "*",
+        "phpoffice/phpspreadsheet": "^1.1"
         
     }
 }
