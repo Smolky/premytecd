@@ -186,7 +186,7 @@ class Export extends CoreOGraphy\BaseController {
         
         
         // Glocuse measures
-        foreach ($historial['glucosa'] as $record) {
+        if (isset ($historial['glucosa'])) foreach ($historial['glucosa'] as $record) {
             
             switch ($record['estado']) {
                 case 'ayuna':

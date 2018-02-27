@@ -2,6 +2,7 @@
     "name": "smolky/premytecd",
     "version": "1.0.0-dev",
     "description": "premyTECD XML.",
+    "minimum-stability": "dev",
     
     "autoload": {
         "psr-4": {
@@ -22,7 +23,7 @@
         "symfony/css-selector": "3.*",
         "philipp15b/php-i18n": "*",
         "zendframework/zend-diactoros": "*",
-        "phpoffice/phpspreadsheet": "^1.1"
+        "fzaninotto/faker": "^1.7"
         
     }
 }
