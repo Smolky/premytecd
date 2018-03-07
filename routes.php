@@ -31,6 +31,11 @@ $router->map ('GET', '/generate-sample-data', function () {
     return new SampleDataGenerator ();
 });
 
+$router->map ('GET', '/generate-sample-data/[:how_many]?', function ($how_many) {
+    require __DIR__ . '/controllers/sample-data-generator/SampleDataGenerator.php';
+    return new SampleDataGenerator ($how_many);
+});
+
 $router->map ('GET', '/generate-sample-data/[:how_many]?/[:start_date]?', function ($how_many, $start_date) {
     require __DIR__ . '/controllers/sample-data-generator/SampleDataGenerator.php';
     return new SampleDataGenerator ($how_many, $start_date);

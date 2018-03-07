@@ -151,6 +151,13 @@
                 {# Birth @see http://www.cdapro.com/know/25058 #}
                 <birthTime value="{{ patient['birth'] }}" />
                 
+                
+                {# Birth @see http://www.cdapro.com/know/25056 #}
+                {% if patient['email'] %}
+                <telecom value="mailto:{{ patient['email'] }}" />
+                {% endif %}
+                
+                
             </patient>
             {# Enf of patient information #}
         
