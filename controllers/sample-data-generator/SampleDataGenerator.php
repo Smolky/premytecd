@@ -97,6 +97,7 @@ class SampleDataGenerator extends CoreOGraphy\BaseController {
         $daily_period = new DatePeriod ($this->start_date, new DateInterval ('P1D'), $this->end_date);
         
         
+        
         // Creating patients
         while ($count <= $this->how_many) {
             
@@ -377,6 +378,17 @@ class SampleDataGenerator extends CoreOGraphy\BaseController {
             $count++;
             
         }
+        
+        
+        foreach ($response as $index => $patient) {
+            $cda = $CDAGenerator->process ($patient);
+            echo '<pre>';
+            print_r ($cda);
+            echo '</pre>';
+            die ();
+
+        }            
+
 
 
         /** @var $zip Create the ZIP container */

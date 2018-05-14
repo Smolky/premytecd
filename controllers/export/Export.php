@@ -307,7 +307,7 @@ class Export extends CoreOGraphy\BaseController {
         $hour = "0000";
         
         
-        /** @var $$hour_field To reference the key where the hour is stored */
+        /** @var $hour_field To reference the key where the hour is stored */
         $hour_field = '';
         
         
@@ -326,6 +326,10 @@ class Export extends CoreOGraphy\BaseController {
                 $hour = ($hour * 1) + 1200;
             }
         }
+        
+        
+        // Complete
+        $hour = str_pad ($hour, 4, "0", STR_PAD_LEFT);
         
         
         // Return the date and the hour
