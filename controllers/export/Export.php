@@ -328,7 +328,7 @@ class Export extends CoreOGraphy\BaseController {
         }
         
         
-        // Complete
+        // Complete the hour "0000"
         $hour = str_pad ($hour, 4, "0", STR_PAD_LEFT);
         
         

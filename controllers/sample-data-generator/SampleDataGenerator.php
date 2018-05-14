@@ -378,16 +378,6 @@ class SampleDataGenerator extends CoreOGraphy\BaseController {
             $count++;
             
         }
-        
-        
-        foreach ($response as $index => $patient) {
-            $cda = $CDAGenerator->process ($patient);
-            echo '<pre>';
-            print_r ($cda);
-            echo '</pre>';
-            die ();
-
-        }            
 
 
 
